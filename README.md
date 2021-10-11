@@ -8,6 +8,12 @@ Everyone needs his own ip suffix!
 
 Packages: ```wireguard-tools iptables-persistent```
 
+Generate private key: ```(umask 0077; wg genkey > peer_A.key)```
+
+then generate public key: ```wg pubkey < peer_A.key > peer_A.pub```
+
+If we want, we can additionaly use preshared keys: ```wg genpsk > peer_A-peer_B.psk```
+
 ```
 /etc/wireguard/wg0.conf
 
@@ -49,4 +55,7 @@ Show active iptable rules: ```sudo iptables -nvL```
 
 ## cron
 
-## ssh 
+## usres / ssh 
+
+## Links
+- https://wiki.archlinux.org/title/WireGuard
