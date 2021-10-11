@@ -57,10 +57,12 @@ def sync_local():
         log.info(f"Updating {dir} locally")
         path = os.path.join(PREFIX, config["username"], config["dirs"][dir]["path"])
         dest = os.path.join(PREFIX, config["username"], config["dec_dir"])
-        excludes = config["dirs"][dir]["exclude"]
         cmd = ["rsync", "-a"]  # TODO other parameters
-        for e in excludes:
-            cmd.append("--exclude=" + e)
+
+        if config["dirs"][dir]["exclude"] is not None:
+            for e in config["dirs"][dir]["exclude"]:
+                cmd.append("--exclude=" + e)
+
         cmd += [path, dest]
         log.debug(f"Executing {cmd}")
         r = sp.run(cmd, stdout=sp.DEVNULL)
@@ -102,7 +104,7 @@ def load_config():
 
 if __name__ == "__main__":
     config = load_config()
-    mount()
+    # mount()
     sync_local()
     unmount()
     sync_remote()
