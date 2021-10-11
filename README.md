@@ -66,6 +66,18 @@ Unmount with ```umount decrypted```
 
 ## users / ssh 
 
+Create user with ```useradd -m UNAME```
+
+Create storage dir and make it onyl accessable for the user: 
+```
+sudo mkdir /data/UNAME
+sudo chown UNAME:UNAME /data/UNAME
+sudo chmod 700 /data/UNAME
+``` 
+
+Generate ssh key with ```ssh-keygen```
+
+Add the other public key to the corresponding users ```/home/UNAME/.ssh/authorized_keys```
 
 ## cron
 
