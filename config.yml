@@ -12,11 +12,12 @@ ecryptfs_passphrase: v3ry_s3cr37
 
 dirs:
   documents: 
+    # Watch for trailing slashes!
     path: Documents
     exclude:
       - "*/big/*"
       - "*.mp4"
 
 
-debug: no
+debug: yes
 
