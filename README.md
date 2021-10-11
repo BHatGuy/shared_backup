@@ -1,7 +1,15 @@
 # shared backup guide / cheat sheet
 
+The devices are connected via wireguard tunnels, but only traffic on port 22 is 
+permitted at each peer.
+Everyone has a user account on every device and can log in with a ssh key.
+The storage is mounted to /data and each user has his own directory there.
 
-## Wireguard
+Syncing can be done via rsync over ssh. The folders can be encrypted before 
+syncing with ecryptfs
+
+
+## wireguard
 
 We might have to change the subnet and ports!
 Everyone needs his own ip suffix!
