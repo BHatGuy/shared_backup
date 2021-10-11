@@ -23,7 +23,7 @@ PostDown = iptables -D INPUT -i %i -j wireguard
 PublicKey = XXXXX
 PresharedKey = XXXXX
 AllowedIPs = 10.10.10.2/32
-Endpoint = 192.168.0.7:51821
+Endpoint = xxx.xxx.xxx.xxx:51821
 ```
 
 Activate the interface with: ```sudo systemctl enable --now wg-quick@wg0```
