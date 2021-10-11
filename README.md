@@ -32,9 +32,6 @@ AllowedIPs = 10.10.10.2/32
 Endpoint = xxx.xxx.xxx.xxx:51821
 ```
 
-Activate the interface with: ```sudo systemctl enable --now wg-quick@wg0```
-
-Show active wireguard intefaces and peers: ```sudo wg```
 
 ```
 /etc/iptables/rules.v4
@@ -49,13 +46,30 @@ Show active wireguard intefaces and peers: ```sudo wg```
 -A wireguard -j DROP
 COMMIT
 ```
+
+Activate the interface with: ```sudo systemctl enable --now wg-quick@wg0```
+
+Show active wireguard intefaces and peers: ```sudo wg```
+
 Show active iptable rules: ```sudo iptables -nvL```
 
 ## ecryptfs / fstab
 
+Mount as a test: ```sudo mount.ecryptfs encrypted/ decrypted/```
+then get the entry form ```cat /etc/mtab``` and append it to ```/etc/fstab```
+add ```noauto,user``` to the list of options.
+
+Now mounting as user is possible:
+First add the key: ```ecryptfs-add-passphrase``` and them mount with ```mount -i decrypted```
+
+Unmount with ```umount decrypted```
+
+## users / ssh 
+
+
 ## cron
 
-## usres / ssh 
 
 ## Links
 - https://wiki.archlinux.org/title/WireGuard
+- https://wiki.archlinux.org/title/ECryptfs
