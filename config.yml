@@ -20,4 +20,5 @@ dirs:
 
 
 debug: yes
+logfile: "log"
 

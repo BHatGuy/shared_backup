@@ -5,11 +5,6 @@ import yaml
 import logging as log
 import sys
 
-log.basicConfig(
-    level=log.INFO,
-    format="%(asctime)s %(levelname)s: %(message)s",
-    datefmt="%H:%M:%S %d-%m-%Y",
-)
 
 PREFIX = "/data/"
 config = None
@@ -97,6 +92,12 @@ def load_config(path="config.yml"):
     if config is None:
         log.error("Could not load config")
         quit(-1)
+    log.basicConfig(
+        filename=config["logfile"],
+        level=log.INFO,
+        format="%(asctime)s %(levelname)s: %(message)s",
+        datefmt="%H:%M:%S %d-%m-%Y",
+    )
     if config["debug"]:
         log.getLogger().setLevel(log.DEBUG)
     log.info("Loaded config")
@@ -105,7 +106,7 @@ def load_config(path="config.yml"):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:    
+    if len(sys.argv) > 1:
         config = load_config(sys.argv[1])
     else:
         config = load_config()
