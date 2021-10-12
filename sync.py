@@ -3,6 +3,7 @@ import os
 import subprocess as sp
 import yaml
 import logging as log
+import sys
 
 log.basicConfig(
     level=log.INFO,
@@ -89,8 +90,8 @@ def sync_remote():
             quit(-1)
 
 
-def load_config():
-    with open("config.yml", "r") as config_file:  #  TODO as parameter
+def load_config(path="config.yml"):
+    with open(path, "r") as config_file:
         config = yaml.safe_load(config_file)
     if config is None:
         log.error("Could not load config")
@@ -103,8 +104,11 @@ def load_config():
 
 
 if __name__ == "__main__":
-    config = load_config()
-    # mount()
+    if len(sys.argv) > 1:    
+        config = load_config(sys.argv[1])
+    else:
+        config = load_config()
+    mount()
     sync_local()
     unmount()
     sync_remote()
