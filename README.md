@@ -89,6 +89,9 @@ Add the other public key to the corresponding users ```/home/UNAME/.ssh/authoriz
 
 ## cron
 
+## python deps
+
+```sudo apt install python3 python3-yaml```
 
 ## Links
 - https://wiki.archlinux.org/title/WireGuard

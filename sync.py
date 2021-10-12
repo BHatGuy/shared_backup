@@ -88,6 +88,7 @@ def sync_remote():
         elif r.returncode != 0:
             log.error(f"Error syncing to peer {ip}")
             quit(-1)
+        log.info(f"Syncing to {ip} done")
 
 
 def load_config(path="config.yml"):
