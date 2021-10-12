@@ -26,9 +26,9 @@ def mount():
         os.path.join(PREFIX, config["username"], config["dec_dir"]),
     ]
     log.debug(f"Executing {cmd_mount}")
-    r = sp.run(cmd_mount, stdout=sp.DEVNULL)
+    r = sp.run(cmd_mount, stdout=sp.DEVNULL, stderr=sp.PIPE)
     if r.returncode != 0:
-        log.error("Error while mounting!")
+        log.error("Error while mounting!" + r.stderr.decode())
         quit(-1)
 
     log.info("Mounting successfull")
