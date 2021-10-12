@@ -26,9 +26,7 @@ def mount():
         os.path.join(PREFIX, config["username"], config["dec_dir"]),
     ]
     log.debug(f"Executing {cmd_mount}")
-    env = os.environ
-    env["PATH"] = env["PATH"] + ":/usr/sbin"
-    r = sp.run(cmd_mount, stdout=sp.DEVNULL, stderr=sp.PIPE, env=env)
+    r = sp.run(cmd_mount, stdout=sp.DEVNULL, stderr=sp.PIPE)
     if r.returncode != 0:
         log.error("Error while mounting!")
         quit(-1)
