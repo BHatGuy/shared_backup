@@ -6,7 +6,7 @@ Everyone has a user account on every device and can log in with a ssh key.
 The storage is mounted to /data and each user has his own directory there.
 
 Syncing can be done via rsync over ssh. The folders can be encrypted before 
-syncing with ecryptfs
+syncing with gocryptfs
 
 
 ## wireguard
@@ -62,6 +62,8 @@ Show active wireguard intefaces and peers: ```sudo wg```
 Show active iptable rules: ```sudo iptables -nvL```
 
 ## gocryptfs
+```sudo apt install govryptfs```
+
 maybe exclude conf??
 
 init once with: ```gocryptfs -init -reverse /data/malte/dec```
