@@ -20,7 +20,7 @@ def mount():
         os.path.join(PREFIX, config["username"], config["enc_dir"]),
     ]
     log.debug(f"Executing {cmd_mount}")
-    r = sp.run(cmd_mount, input= config["fs_passphrase"].encode(),stdout=sp.DEVNULL)
+    r = sp.run(cmd_mount, input=config["fs_passphrase"].encode(), stdout=sp.DEVNULL)
     if r.returncode != 0:
         log.error("Error while mounting!")
         quit(-1)
@@ -31,7 +31,11 @@ def mount():
 def unmount():
     log.info("Unmounting...")
 
-    cmd = ["fusermount", "-u", os.path.join(PREFIX, config["username"], config["enc_dir"])]
+    cmd = [
+        "fusermount",
+        "-u",
+        os.path.join(PREFIX, config["username"], config["enc_dir"]),
+    ]
     log.debug(f"Executing {cmd}")
     r = sp.run(cmd, stdout=sp.DEVNULL)
     if r.returncode != 0:
