@@ -2,13 +2,12 @@ ip_prefix: 10.10.10.
 id: 1
 peers:
   - 2
-  - 3
 
 username: malte
 
-enc_dir: encrypted
-dec_dir: decrypted
-ecryptfs_passphrase: v3ry_s3cr37
+enc_dir: enc
+dec_dir: dec
+fs_passphrase: xxx
 
 dirs:
   documents: 
@@ -20,5 +19,5 @@ dirs:
 
 
 debug: yes
-logfile: "log"
+logfile: /home/malte/log
 

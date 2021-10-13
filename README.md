@@ -61,16 +61,16 @@ Show active wireguard intefaces and peers: ```sudo wg```
 
 Show active iptable rules: ```sudo iptables -nvL```
 
-## ecryptfs / fstab
+## gocryptfs
+maybe exclude conf??
 
-Mount as a test: ```sudo mount.ecryptfs encrypted/ decrypted/```
-then get the entry form ```cat /etc/mtab``` and append it to ```/etc/fstab```
-add ```noauto,user``` to the list of options.
+init once with: ```gocryptfs -init -reverse /data/malte/dec```
 
-Now mounting as user is possible:
-First add the key: ```ecryptfs-add-passphrase``` and them mount with ```mount -i decrypted```
+mount reversed: ```gocryptfs -reverse dec enc```
 
-Unmount with ```umount decrypted```
+decrypt: ```gocryptfs backup/ restore```
+
+
 
 ## users / ssh 
 
@@ -88,11 +88,14 @@ Generate ssh key with ```ssh-keygen```
 Add the other public key to the corresponding users ```/home/UNAME/.ssh/authorized_keys```
 
 ## cron
-
+edit with ```crontab -e```
+```
+0 3 * * 3 /home/malte/shared_backup/sync.py /home/malte/config.yml
+```
 ## python deps
 
 ```sudo apt install python3 python3-yaml```
 
 ## Links
 - https://wiki.archlinux.org/title/WireGuard
-- https://wiki.archlinux.org/title/ECryptfs
+- https://wiki.archlinux.org/title/Gocryptfs

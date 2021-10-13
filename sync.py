@@ -13,20 +13,14 @@ config = None
 def mount():
     log.info("Mounting...")
 
-    cmd_key = ["ecryptfs-add-passphrase"]
-    log.debug(f"Executing {cmd_key}")
-    r = sp.run(cmd_key, input=config["ecryptfs_passphrase"].encode(), stdout=sp.DEVNULL)
-    if r.returncode != 0:
-        log.error("Error while mounting!")
-        quit(-1)
-
     cmd_mount = [
-        "mount",
-        "-i",
+        "gocryptfs",
+        "-reverse",
         os.path.join(PREFIX, config["username"], config["dec_dir"]),
+        os.path.join(PREFIX, config["username"], config["enc_dir"]),
     ]
     log.debug(f"Executing {cmd_mount}")
-    r = sp.run(cmd_mount, stdout=sp.DEVNULL, stderr=sp.PIPE)
+    r = sp.run(cmd_mount, input= config["fs_passphrase"].encode(),stdout=sp.DEVNULL)
     if r.returncode != 0:
         log.error("Error while mounting!")
         quit(-1)
@@ -37,7 +31,7 @@ def mount():
 def unmount():
     log.info("Unmounting...")
 
-    cmd = ["umount", os.path.join(PREFIX, config["username"], config["dec_dir"])]
+    cmd = ["fusermount", "-u", os.path.join(PREFIX, config["username"], config["enc_dir"])]
     log.debug(f"Executing {cmd}")
     r = sp.run(cmd, stdout=sp.DEVNULL)
     if r.returncode != 0:
@@ -53,7 +47,7 @@ def sync_local():
         log.info(f"Updating {dir} locally")
         path = os.path.join(PREFIX, config["username"], config["dirs"][dir]["path"])
         dest = os.path.join(PREFIX, config["username"], config["dec_dir"])
-        cmd = ["rsync", "-a"]  # TODO other parameters
+        cmd = ["rsync", "-a"]  # TODO other parameters?
 
         if config["dirs"][dir]["exclude"] is not None:
             for e in config["dirs"][dir]["exclude"]:
@@ -75,7 +69,7 @@ def sync_remote():
         path = os.path.join(PREFIX, config["username"], config["enc_dir"]) + "/"
         uname = config["username"]
         remote = f"{uname}@{ip}:{path}"
-        cmd = ["rsync", "--timeout=15", "-az", path, remote]  # TODO other parameters
+        cmd = ["rsync", "--timeout=15", "-az", path, remote]  # TODO other parameters?
         log.debug(f"Executing {cmd}")
         r = sp.run(cmd, stdout=sp.DEVNULL)
         if r.returncode == 30:
@@ -110,7 +104,7 @@ if __name__ == "__main__":
         config = load_config(sys.argv[1])
     else:
         config = load_config()
-    mount()
     sync_local()
-    unmount()
+    mount()
     sync_remote()
+    unmount()
